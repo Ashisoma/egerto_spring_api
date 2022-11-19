@@ -18,6 +18,8 @@ public class ResponseData {
     @Id
     private String fileId;
     private String fileName;
+    private String departmentName;
+    private String courseName;
     private String downloadUrl;
     private String fileType;
     private long fileSize;

@@ -7,9 +7,15 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface AttachmentService {
-    Attachment saveAttachment(MultipartFile file) throws Exception;
+    Attachment saveAttachment(MultipartFile file, String departmentName, String courseName) throws Exception;
 
     Attachment getAttachment(String fileId) throws Exception;
 
     List<ResponseData> getAllAttatchments();
+
+    List<ResponseData> getByCourseNameIgnoreCase(String courseName);
+
+    List<ResponseData> getByDepartmentNameIgnoreCase(String departmentName);
+
+    List<ResponseData> searchCourseIgnoreCase(String courseName);
 }
