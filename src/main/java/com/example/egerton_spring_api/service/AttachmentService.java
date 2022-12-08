@@ -15,7 +15,7 @@ public interface AttachmentService {
 
     List<ResponseData> getByCourseNameIgnoreCase(String courseName);
 
-    List<ResponseData> getByDepartmentNameIgnoreCase(String departmentName);
+    List<ResponseData> getByFacultyNameIgnoreCase(String departmentName);
 
     List<ResponseData> searchCourseIgnoreCase(String courseName);
 }

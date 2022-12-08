@@ -48,6 +48,10 @@ public class AttachmentServiceImpl implements AttachmentService{
 
     }
 
+    public ResponseData saveData(ResponseData responseData){
+        return responseDataRepository.save(responseData);
+    }
+
     @Override
     public Attachment getAttachment(String fileId) throws Exception {
         return repository.findById(fileId).orElseThrow(()-> new Exception("File not found with id :" +fileId));
@@ -64,8 +68,8 @@ public class AttachmentServiceImpl implements AttachmentService{
     }
 
     @Override
-    public List<ResponseData> getByDepartmentNameIgnoreCase(String departmentName) {
-        return responseDataRepository.findByDepartmentNameIgnoreCase(departmentName);
+    public List<ResponseData> getByFacultyNameIgnoreCase(String facultyName) {
+        return responseDataRepository.findResponseDataByFacultyNameIgnoreCase(facultyName);
     }
 
 

@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ResponseDataRepository extends JpaRepository<ResponseData, String> {
-    @Query("select r from ResponseData r where upper(r.departmentName) = upper(?1)")
-    List<ResponseData> findByDepartmentNameIgnoreCase(String departmentName);
+    @Query("select r from ResponseData r where upper(r.facultyName) = upper(?1)")
+    List<ResponseData> findResponseDataByFacultyNameIgnoreCase(String facultyName);
 
     @Query("select r from ResponseData r where upper(r.courseName) = upper(?1)")
     List<ResponseData> findByCourseNameIgnoreCase(String courseName);

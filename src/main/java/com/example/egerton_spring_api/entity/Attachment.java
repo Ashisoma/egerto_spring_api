@@ -18,7 +18,7 @@ public class Attachment {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String fileName;
-    private String departmentName;
+    private String facultyName;
     private String courseName;
     private String fileType;
 
@@ -28,7 +28,7 @@ public class Attachment {
 
     public Attachment(String fileName, String departmentName, String courseName, String fileType, byte[] data) {
         this.fileName = fileName;
-        this.departmentName = departmentName;
+        this.facultyName = departmentName;
         this.courseName = courseName;
         this.fileType = fileType;
         this.data = data;
