@@ -83,4 +83,9 @@ public class AttachmentController {
     public List<ResponseData> searchByCourseName(@PathVariable("courseName") String courseName){
         return attachmentService.searchCourseIgnoreCase(courseName);
     }
+
+    @DeleteMapping("/delete/{fileId}")
+    public String delete(@PathVariable("fileId") String fileId){
+        return attachmentService.deleteDoc(fileId);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class AttachmentServiceImpl implements AttachmentService{
@@ -76,6 +77,20 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Override
     public List<ResponseData> searchCourseIgnoreCase(String courseName) {
         return responseDataRepository.findByCourseNameContainsIgnoreCase(courseName);
+    }
+
+    @Override
+    public String deleteDoc(String fileId) {
+        try {
+            boolean attachment_exists = repository.existsById(fileId);
+            if(!attachment_exists){
+                throw new IllegalStateException("File with id "+ fileId + " does not exist");
+            }
+            repository.deleteById(fileId);
+            return "File deleted successfully";
+        }catch (Exception e){
+            return "Error occurred : " + e;
+        }
     }
 
 }

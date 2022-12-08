@@ -18,4 +18,9 @@ public interface AttachmentService {
     List<ResponseData> getByFacultyNameIgnoreCase(String departmentName);
 
     List<ResponseData> searchCourseIgnoreCase(String courseName);
+
+    String deleteDoc(String fileId);
+
+
+
 }
