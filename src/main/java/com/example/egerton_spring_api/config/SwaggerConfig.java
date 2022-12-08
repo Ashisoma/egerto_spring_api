@@ -11,7 +11,9 @@ package com.example.egerton_spring_api.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -24,6 +26,8 @@ import java.util.List;
 
 @Configuration
 @EnableSwagger2
+@Component
+@EnableWebMvc
 public class SwaggerConfig {
 
     @Bean
