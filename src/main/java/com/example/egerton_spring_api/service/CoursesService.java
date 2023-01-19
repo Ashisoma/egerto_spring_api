@@ -23,16 +23,16 @@ public class CoursesService {
     private final DepartmentsRepository departmentsRepository;
     
     
-    private String saveData(Departments department){
-        String returnVal = "";
-        Set<Courses> courseList = null;
-        Departments dept = new Departments();
-        Courses courses = new Courses();
-        courseList.add(courses);
-        dept.setCoursesList(courseList);
-
-        return returnVal;
-    }
+//    private String saveData(Departments department){
+//        String returnVal = "";
+//        Set<Courses> courseList = null;
+//        Departments dept = new Departments();
+//        Courses courses = new Courses();
+//        courseList.add(courses);
+//        dept.setCoursesList(courseList);
+//
+//        return returnVal;
+//    }
 
 
     public List<Courses> searchUnitIgnoreCase(String unitCode) {
