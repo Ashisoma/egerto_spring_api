@@ -21,7 +21,7 @@ public class CourseController {
     private final CoursesRepository coursesRepository;
     private final CoursesService coursesService;
 
-    @GetMapping("/course/{unitCode}")
+    @GetMapping("/unit/{unitCode}")
     public List<Courses> getUnitsByCourses(@PathVariable("unitCode") String unitCode){
         return coursesService.searchUnitIgnoreCase(unitCode);
     }
