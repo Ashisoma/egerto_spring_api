@@ -42,4 +42,8 @@ public class CoursesService {
     public List<Courses> searchCourseIgnoreCase(String courseName) {
         return coursesRepository.findByCourseNameContainsIgnoreCase(courseName);
     }
+
+    public Courses saveCourse(Courses course) {
+        return coursesRepository.save(course);
+    }
 }

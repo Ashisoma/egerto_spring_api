@@ -11,6 +11,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Courses {
+
+    @GeneratedValue(strategy = GenerationType.AUTO,
+            generator = "course_sequence")
+    @SequenceGenerator(name = "course_sequence",
+            sequenceName = "course_sequence",
+            allocationSize = 1)
     @Id
     private Long id;
     private String unitCode;
