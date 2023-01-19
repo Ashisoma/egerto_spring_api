@@ -16,12 +16,13 @@ import java.util.Optional;
 @Service
 public class AttachmentServiceImpl implements AttachmentService{
 
-    private AttachmentRepository repository;
+    private final AttachmentRepository repository;
 
     @Autowired
     private ResponseDataRepository responseDataRepository;
 
-    public AttachmentServiceImpl(AttachmentRepository repository) {
+    public AttachmentServiceImpl(AttachmentRepository repository, ResponseDataRepository responseDataRepository) {
+        this.responseDataRepository = responseDataRepository;
         this.repository = repository;
     }
 
@@ -81,16 +82,25 @@ public class AttachmentServiceImpl implements AttachmentService{
 
     @Override
     public String deleteDoc(String fileId) {
-        try {
-            boolean attachment_exists = repository.existsById(fileId);
-            if(!attachment_exists){
-                throw new IllegalStateException("File with id "+ fileId + " does not exist");
+
+        boolean attachment_exists = repository.existsById(fileId);
+        String returnValue = "";
+        boolean data_exists = repository.existsById(fileId);
+            if(!attachment_exists && !data_exists){
+                returnValue = "File with id "+ fileId + " does not exist";
             }
-            repository.deleteById(fileId);
-            return "File deleted successfully";
-        }catch (Exception e){
-            return "Error occurred : " + e;
-        }
+//            repository.deleteById(fileId);
+            responseDataRepository.deleteById(fileId);
+            returnValue = "File deleted successfully";
+
+            return  returnValue;
+
+
+    }
+
+    @Override
+    public List<ResponseData> searchUnitIgnoreCase(String unitCode) {
+        return responseDataRepository.findByUnitCodeContainsIgnoreCase(unitCode);
     }
 
 }

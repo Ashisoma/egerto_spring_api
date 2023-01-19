@@ -22,5 +22,5 @@ public interface AttachmentService {
     String deleteDoc(String fileId);
 
 
-
+    List<ResponseData> searchUnitIgnoreCase(String courseName);
 }

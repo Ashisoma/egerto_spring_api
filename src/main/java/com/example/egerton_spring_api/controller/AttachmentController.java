@@ -2,6 +2,7 @@ package com.example.egerton_spring_api.controller;
 
 //import antlr.StringUtils;
 import com.example.egerton_spring_api.entity.Attachment;
+import com.example.egerton_spring_api.entity.Courses;
 import com.example.egerton_spring_api.models.ResponseData;
 import com.example.egerton_spring_api.service.AttachmentServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,9 @@ public class AttachmentController {
     }
     @PostMapping("/upload")
     public ResponseData uploadFile(@RequestParam("file") MultipartFile file,
-                                   @RequestParam("facultyName")  String facultyName, @RequestParam("courseName") String courseName
+                                   @RequestParam("facultyName")  String facultyName,
+                                   @RequestParam("courseName") String courseName,
+                                   @RequestParam("unitCode") String unitCode
     ) throws Exception {
       Attachment attachment = null;
       String downloadUrl = "";
@@ -45,7 +48,8 @@ public class AttachmentController {
               .toUriString();
         log.info("Attachment {}", attachment.getFileName());
 
-      ResponseData data = new ResponseData(attachment.getId(), attachment.getFileName() , attachment.getFacultyName(), attachment.getCourseName(),downloadUrl,file.getContentType(),file.getSize());
+      ResponseData data = new ResponseData(attachment.getId(),attachment.getFileName(), facultyName,unitCode,courseName,
+              downloadUrl, attachment.getFileType(), file.getSize() );
         log.info("Data {}", data);
 
         attachmentService.saveData(data);
@@ -83,6 +87,13 @@ public class AttachmentController {
     public List<ResponseData> searchByCourseName(@PathVariable("courseName") String courseName){
         return attachmentService.searchCourseIgnoreCase(courseName);
     }
+
+    @GetMapping("/searchUnit/{unitCode}")
+    public List<ResponseData> searchByUnitCode(@PathVariable("unitCode") String unitCode){
+        return attachmentService.searchUnitIgnoreCase(unitCode);
+    }
+
+
 
     @DeleteMapping("/delete/{fileId}")
     public String delete(@PathVariable("fileId") String fileId){

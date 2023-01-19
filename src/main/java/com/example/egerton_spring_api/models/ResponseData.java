@@ -17,6 +17,7 @@ public class ResponseData {
     private String fileId;
     private String fileName;
     private String facultyName;
+    private String unitCode;
     private String courseName;
     private String downloadUrl;
     private String fileType;

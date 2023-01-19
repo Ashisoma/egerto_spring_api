@@ -15,4 +15,7 @@ public interface ResponseDataRepository extends JpaRepository<ResponseData, Stri
 
     @Query("select r from ResponseData r where upper(r.courseName) like upper(concat('%', ?1, '%'))")
     List<ResponseData> findByCourseNameContainsIgnoreCase(String courseName);
+
+    @Query("select r from ResponseData r where upper(r.unitCode) like upper(concat('%', ?1, '%'))")
+    List<ResponseData> findByUnitCodeContainsIgnoreCase(String unitCode);
 }
