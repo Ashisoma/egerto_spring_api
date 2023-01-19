@@ -23,12 +23,6 @@ public class Departments {
     @Id
     private Long id;
 
-    @JsonIgnore
-    @OneToMany(
-            mappedBy = "courses",
-            cascade = CascadeType.ALL
-    )
-    private Set<Courses> coursesList;
 
     private String unitCode;
     private String facultyName;
