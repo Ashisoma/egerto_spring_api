@@ -14,12 +14,9 @@
     <name>egerton_spring_api</name>
     <description>egerton_spring_api</description>
     <properties>
-        <java.version>11</java.version>
-
+<!--        <java.version>11</java.version>-->
             <maven.compiler.source>1.8</maven.compiler.source>
             <maven.compiler.target>1.8</maven.compiler.target>
-
-
     </properties>
     <dependencies>
         <dependency>
