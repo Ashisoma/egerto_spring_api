@@ -103,4 +103,12 @@ public class AttachmentServiceImpl implements AttachmentService{
         return responseDataRepository.findByUnitCodeContainsIgnoreCase(unitCode);
     }
 
+    @Override
+    public Optional<Attachment> getById(String fileId) {
+        return repository.findById(fileId);
+    }
+
+    public List<Attachment> getAllFiles() {
+        return repository.findAll();
+    }
 }

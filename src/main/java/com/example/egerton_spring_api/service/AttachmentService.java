@@ -5,6 +5,7 @@ import com.example.egerton_spring_api.models.ResponseData;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AttachmentService {
     Attachment saveAttachment(MultipartFile file, String departmentName, String courseName) throws Exception;
@@ -23,4 +24,6 @@ public interface AttachmentService {
 
 
     List<ResponseData> searchUnitIgnoreCase(String courseName);
+
+    Optional<Attachment> getById(String fileId);
 }

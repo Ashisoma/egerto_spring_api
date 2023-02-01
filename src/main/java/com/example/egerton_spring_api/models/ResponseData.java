@@ -20,6 +20,7 @@ public class ResponseData {
     private String unitCode;
     private String courseName;
     private String downloadUrl;
+    private String renderUrl;
     private String fileType;
     private long fileSize;
 

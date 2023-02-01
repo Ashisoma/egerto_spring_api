@@ -2,7 +2,6 @@ package com.example.egerton_spring_api.controller;
 
 //import antlr.StringUtils;
 import com.example.egerton_spring_api.entity.Attachment;
-import com.example.egerton_spring_api.entity.Courses;
 import com.example.egerton_spring_api.models.ResponseData;
 import com.example.egerton_spring_api.service.AttachmentServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping
@@ -35,21 +35,26 @@ public class AttachmentController {
     @PostMapping("/upload")
     public ResponseData uploadFile(@RequestParam("file") MultipartFile file,
                                    @RequestParam("facultyName")  String facultyName,
-                                   @RequestParam("courseName") String courseName,
+                                       @RequestParam("courseName") String courseName,
                                    @RequestParam("unitCode") String unitCode
     ) throws Exception {
       Attachment attachment = null;
-      String downloadUrl = "";
+        String downloadUrl = "";
+        String renderUrl = "";
         attachment = attachmentService.saveAttachment(file,facultyName,courseName);
 
         downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
               .path("/download/")
               .path(attachment.getId())
               .toUriString();
+        renderUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/render/")
+                .path(attachment.getId())
+                .toUriString();
         log.info("Attachment {}", attachment.getFileName());
 
       ResponseData data = new ResponseData(attachment.getId(),attachment.getFileName(), facultyName,unitCode,courseName,
-              downloadUrl, attachment.getFileType(), file.getSize() );
+              downloadUrl,renderUrl, attachment.getFileType(), file.getSize() );
         log.info("Data {}", data);
 
         attachmentService.saveData(data);
@@ -62,8 +67,21 @@ public class AttachmentController {
         attachment = attachmentService.getAttachment(fileId);
 
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachment.getFileType()))
+
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName\""+attachment.getFileName()
                 +"\"")
+                .body(new ByteArrayResource(attachment.getData()));
+    }
+
+    @GetMapping("/render/{fileId}")
+    public ResponseEntity<Resource> renderFile(@PathVariable String fileId) throws Exception {
+        Attachment attachment = null;
+        attachment = attachmentService.getAttachment(fileId);
+
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachment.getFileType()))
+
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; fileName\""+attachment.getFileName()
+                        +"\"")
                 .body(new ByteArrayResource(attachment.getData()));
     }
 
@@ -71,6 +89,17 @@ public class AttachmentController {
     public List<ResponseData> getAll(){
         return attachmentService.getAllAttatchments();
     }
+
+    @GetMapping("/getFile")
+    public List<Attachment> getAllFiles(){
+        return attachmentService.getAllFiles();
+    }
+
+    @GetMapping("/get/{fileId}")
+    public Optional<Attachment> getAttachmentById(@PathVariable String fileId){
+        return attachmentService.getById(fileId);
+    }
+
 
     @GetMapping("/department/{facultyName}")
     public List<ResponseData> getCoursesInFacultyName(@PathVariable("facultyName") String facultyName){
